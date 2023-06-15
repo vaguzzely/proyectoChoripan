@@ -18,6 +18,7 @@ typedef struct {
     bool completada;
 } datosTarea;
 
+//hagoe sto para ejemplificar un commit
 /*typedef struct
 {
   char nombreNotas[50];

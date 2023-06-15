@@ -10,20 +10,9 @@
 #include "hashmap.h"
 #include "treemap.h"
 
-
-typedef struct
-{
-  char texto[10000];
-}Recordatorio;
-
-void crearRecordatorio()
-{
-  
-}
-
 void opcionesRecordatorio()/*opciones de las opcion recordatorio*/
 {
-    puts("\n==============================================");
+  puts("\n==============================================");
   puts("\t1.- CREAR RECORDATORIO");
   puts("\t2.- DESHACER RECORDATORIO");
   puts("\t3.- MOSTRAR RECORDATORIOS");
@@ -32,7 +21,7 @@ void opcionesRecordatorio()/*opciones de las opcion recordatorio*/
   printf("\nSeleccione una opción (1-4)\n");
 }
 //submenú si se presiona la opción de recordatorios
-void recordatorios()
+void MenuRecordatorios(List* recordatorios)
 {
   int opc;
   
@@ -45,15 +34,20 @@ void recordatorios()
     {
       case 1:
         printf("Has seleccionado la opción 1.\n");
-        crearRecordatorio();
+        system("clear");
+        crearRecordatorio(recordatorios);
         break;
 
       case 2:
         printf("Has seleccionado la opción 2.\n");
+        system("clear");
+        borrarRecordatorio(recordatorios);
         break;
 
       case 3:
         printf("Has seleccionado la opción 3.\n");
+        system("clear");
+        mostrarRecordatorios(recordatorios);
         break;
 
       case 4:
@@ -69,16 +63,15 @@ void recordatorios()
   }
 }
 
-
 void mosOpc2() //Opciones para Gestion de Finanzas
 {
-  puts("\n==============================================");
+  puts("\n==================================================");
   puts("\t1.- REGISTRO DE TRANSACCIONES");
   puts("\t2.- CATEGORIAS");
   puts("\t3.- PRESUPUESTO");
   puts("\t4.- INFORME FINANCIERO");
   puts("\t5.- VOLVER A MENU");
-  puts("==============================================");
+  puts("==================================================");
   printf("\nSeleccione una opción (1-5)\n");
 }
 
@@ -95,19 +88,23 @@ void subMenu2()
     switch(opc) 
     {
       case 1:
-        printf("Has seleccionado la opción 1.\n");
+        printf("\nHas seleccionado la opción 1.\n");
+        opcion1();
         break;
 
       case 2:
-        printf("Has seleccionado la opción 2.\n");
+        printf("\nHas seleccionado la opción 2.\n");
+        opcion2();
         break;
 
       case 3:
-        printf("Has seleccionado la opción 3.\n");
+        printf("\nHas seleccionado la opción 3.\n");
+        opcion3();
         break;
 
       case 4:
-        printf("Has seleccionado la opción 4.\n");
+        printf("\nHas seleccionado la opción 4.\n");
+        opcion4();
         break;
 
       case 5:
@@ -115,7 +112,7 @@ void subMenu2()
         return ;
 
       default:
-        printf("Opción inválida.\n");
+        printf("\nOpción inválida.\n");
         system("clear");
         break;
     }
@@ -125,19 +122,19 @@ void subMenu2()
 //opciones menú principal
 void mostrarOpciones()
 {
-  puts("\n================================================================");
+  puts("\n==================================================");
   puts("\t1.- ORGANIZADOR PERSONAL");
   puts("\t2.- GESTION DE FINANZAS PERSONALES");
   puts("\t3.- RECORDATORIOS");
   puts("\t4.- CONFIGURACIONES");
   puts("\t5.- EXTRAER E IMPRIMIR");
   puts("\t6.- SALIR");//te lleva al menú principal
-  puts("================================================================\n");
+  puts("==================================================\n");
   printf("Seleccione una opción (1-6)\n");
 }
 
 //menú principal
-void menu()
+void menu(List* recordatorios)
 {
   int opcion;
 
@@ -277,7 +274,7 @@ void menu()
       case 3:
         printf("Has seleccionado la opción 3.\n");
         system("clear");
-        recordatorios();
+        MenuRecordatorios(recordatorios);
         break;
 
       case 4:
@@ -306,7 +303,7 @@ int main()
   listaTareas = createList();
   HashMap *notas = createMap(100000);
   List* recordatorios = createList();
-  menu();
+  menu(recordatorios);
   
   return 0;
 }
