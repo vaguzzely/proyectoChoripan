@@ -148,6 +148,7 @@ void opcionesRecordatorio() /*opciones de las opcion recordatorio*/
   puts("==============================================");
   printf("\nSeleccione una opción (1-4)\n");
 }
+
 // submenú si se presiona la opción de recordatorios
 void MenuRecordatorios(List *recordatorios) {
   HashMap *mapaMeses = createMap(13);
@@ -190,7 +191,43 @@ void MenuRecordatorios(List *recordatorios) {
   }
 }
 
-void mosOpc2() // Opciones para Gestion de Finanzas
+void mostrarMenuExportar(HashMap *mapaNotas) 
+{
+  printf("----- Exportar -----\n");
+  printf("1. Exportar tareas\n");
+  printf("2. Exportar notas\n");
+  printf("3. Exportar contactos\n");
+  printf("4. Volver al menú anterior\n");
+  printf("Ingrese una opción: ");
+
+  int opcion;
+  scanf("%d", &opcion);
+
+  switch (opcion) {
+    case 1:
+      printf("Has seleccionado la opción 1: Exportar tareas. Presione 1.\n");
+      break;
+    
+    case 2:
+      printf("Has seleccionado la opción 2: Exportar notas. Presione 2.\n");
+      // Lógica para exportar notas
+    break;
+    case 3:
+      printf("Has seleccionado la opción 3: Exportar contactos. Presione 3.\n");
+            // Lógica para exportar contactos
+    break;
+    
+    case 4:
+      printf("Volviendo al menú anterior. Presione 5.\n");
+            // Lógica para volver al menú anterior
+    break;
+    default:
+      printf("Opción inválida.\n");
+      break;
+    }
+}
+
+void mosOpc2() //Opciones para Gestion de Finanzas
 {
   puts("\n==================================================");
   puts("\t1.- REGISTRO DE TRANSACCIONES");
@@ -202,14 +239,15 @@ void mosOpc2() // Opciones para Gestion de Finanzas
   printf("\nSeleccione una opción (1-5)\n");
 }
 
-// submenú si se presiona la opción 2, gestión de finanzas
+//submenú si se presiona la opción 2, gestión de finanzas
 void subMenu2()
 {
   int opc;
   List *listaM = createList();
   HashMap *mapCat = createMap(MAX);
 
-  while (1) {
+  while (1)
+  {
     mosOpc2();
     scanf("%i", &opc);
 
@@ -253,7 +291,7 @@ void mostrarOpciones() {
   puts("\t2.- GESTION DE FINANZAS PERSONALES");
   puts("\t3.- RECORDATORIOS");
   puts("\t4.- AYUDA");
-  puts("\t5.- EXTRAER E IMPRIMIR");
+  puts("\t5.- EXPORTAR");
   puts("\t6.- SALIR"); // te lleva al menú principal
   puts("==================================================\n");
   printf("Seleccione una opción (1-6)\n");
@@ -415,10 +453,10 @@ void menu(List *recordatorios,TreeMap *arbolTareas,HashMap *mapaNotas,HashMap *m
         break;
       case 3:
         printf("¿Cómo usar los recordatorios?\n\n");
-        // funcionalidad
+        comRecordatorios();
         break;
       case 4:
-        printf("¿Cómo usar extraer e imprimir?\n\n");
+        printf("¿Cómo usar exportar?\n\n");
         // funcionalidad
         break;
       default:
@@ -429,6 +467,29 @@ void menu(List *recordatorios,TreeMap *arbolTareas,HashMap *mapaNotas,HashMap *m
     // fin menú ayuda
     case 5:
       printf("Has seleccionado la opción 5.\n");
+      mostrarMenuExportar(opcion);
+      int opcionSubMenu5 = 0;
+      scanf("%d", &opcionSubMenu5);
+
+      switch (opcionSubMenu5) {
+        case 1:
+          printf("Has seleccionado exportar tu lista de tareas.\n");
+          exportarCsvTareas(arbolTareas);
+        // funcionalidad
+        break;
+        case 2:
+          printf("Has seleccionado exportar tus notas. Presione 5.\n");
+        // funcioinalidad
+          exportarCsvNotas(mapaNotas);
+        break;
+        case 3:
+          printf("Has seleccionado exportar tus contactos.Presione 5.\n");
+          exportarCsvContactos(mapaContactos);
+        // funcionalidad
+        break;
+      }
+      break;
+// fin menú exportar
       break;
 
     case 6:
@@ -448,7 +509,8 @@ int main() {
   HashMap *mapaNotas = createMap(100000);
   HashMap *mapaContactos = createMap(100000);
   List *recordatorios = createList();
-  menu(recordatorios,arbolTareas,mapaNotas,mapaContactos);
+  
+  menu(recordatorios, arbolTareas, mapaNotas, mapaContactos);
 
   return 0;
 }

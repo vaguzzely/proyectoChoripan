@@ -18,7 +18,7 @@ void menuAyuda()
   printf("2. ¿Cómo usar la gestión de finanzas personales?\n");
   printf("3. ¿Cómo usar los recordatorios?\n");
   printf("4. ¿Cómo usar extraer e imprimir?\n");
-  printf("\nSeleccione una opción (1-4):\n");
+  printf("\nSeleccione una opción (1-4) Presione 5 para volver. :\n");
 }
 
 void comOrganizador()
@@ -142,12 +142,36 @@ void comFinanzas()
   printf("Informe financiero exportará los datos almacenados en Gestion de Finanzas a un archivo CSV (excel). El cual debe abrirse externo a EasyLife para poder imprimir el informe si se desea\n\n");
 }
 
-/*
-void comRecordatorios
+void comRecordatorios()
 {
+  printf("Recordatorios:\n");
+  printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+  printf("La función recordatorios fue creada para ayudarte a a no olvidar nada importante.\n\n");
+  
+  printf("Recordatorios te ofrece las siguientes opciones (submenús):\n\n");
+
+  printf("1. Crear recordatorio:\n");
+  printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+  printf("Aquí podrás guardar los eventos importantes de tu vida, con la fecha en la que desees recordarlos. Al crear un recordatorio, no tendrás que preocuparte por volver a olvidarlo, ya que siempre lo tendrás anotado.\n\n");
+  printf("2. Borrar recordatorio:\n");
+  printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+  printf("En esta opcion podras eliminar el ultimo recordatorio que ingresaste por cualquier error.\n\n");
+  
+ printf("3. Mostrar Recordatorio:\n");
+  printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+
+  printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+  printf("3.1 Mostrar por Mes\n");
+  printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+  printf("Aqui podrás ver los pendientes que tienes según el mes que selecciones y así ver si tienes pendientes que recordar\n\n");
+
+  printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+  printf("3.2 Mostrar por orden de ingreso:\n");
+  printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+  printf("Con esta función podrás visualizar todos los recordatorios que ingresaste, se mostrarán según el orden en que los hayas registrado.\n\n");
+  puts("DISFRUTA");
   
 }
-*/
 
 /*
 void comExtraer

@@ -10,6 +10,7 @@
 #include "hashmap.h"
 #include "treemap.h"
 #include "arraylist.h"
+#include <time.h>
 
 
 typedef struct {
@@ -262,6 +263,7 @@ void verEstadoActual(TreeMap* arbolTareas)
   }
 }*/
 //+++++++++++++++++++++++++++++++++++++++++++++AQUIAQUIAQUIAQUI
+/*
 void swap(datosTarea** tarea1, datosTarea** tarea2) {
     datosTarea* temp = *tarea1;
     *tarea1 = *tarea2;
@@ -281,7 +283,7 @@ void ordenarPorPrioridad(datosTarea* tareas, int numTareas) {
         }
     }
 }
-
+*/
 void verEstadoActual(TreeMap* arbolTareas)
 {
     if (arbolTareas == NULL)
@@ -300,9 +302,6 @@ void verEstadoActual(TreeMap* arbolTareas)
         datosTarea* tarea = (datosTarea*)pair->value;
         tareas[index++] = *tarea;
     }
-
-    // Ordenar las tareas por prioridad
-    ordenarPorPrioridad(tareas, numTareas);
 
     printf("Estado actual de las tareas:\n");
     printf("---------------------------\n");
@@ -486,34 +485,103 @@ void mostrarTodosContactos(HashMap *mapaContactos)
   printf("Presione 5.");
 }
 
-/*void verNotas(HashMap *mapaNotas)
-{
-  if (size(mapaNotas) == 0)
-  {
-    printf("No hay notas existentes.\n");
-    return;
-  }
+void exportarCsvNotas(HashMap *mapaNotas) {
+    time_t tiempoActual = time(NULL);
+    struct tm *tiempoInfo = localtime(&tiempoActual);
 
-  printf("Notas existentes:\n");
+    char nombreArchivo[100];
+    sprintf(nombreArchivo, "notas_%d-%02d-%02d_%02d-%02d-%02d.csv",
+            tiempoInfo->tm_year + 1900, tiempoInfo->tm_mon + 1, tiempoInfo->tm_mday,
+            tiempoInfo->tm_hour, tiempoInfo->tm_min, tiempoInfo->tm_sec);
 
-  // Iterate over each entry in the hash map
-  for (int i = 0; i < capacity(mapaNotas); i++)
-  {
-    if (mapaNotas->buckets[i] != NULL)
-    {
-      Node *currentNode = mapaNotas->buckets[i];
-
-      while (currentNode != NULL)
-      {
-        nota *currentNota = (nota *)currentNode->value;
-        printf("Nombre: %s\n", currentNota->nombreNotas);
-        printf("Texto: %s\n", currentNota->textoNotas);
-        printf("--------------------\n");
-        currentNode = currentNode->next;
-      }
+    FILE *archivo = fopen(nombreArchivo, "w");
+    if (archivo == NULL) {
+        printf("No se pudo crear el archivo.\n");
+        return;
     }
-  }
-}*/
+
+    hashPair *par = firstMap(mapaNotas);
+    while (par != NULL) {
+        nota *datosNota = par->value;
+        fprintf(archivo, "%s,%s\n", datosNota->nombreNotas, datosNota->textoNotas);
+        par = nextMap(mapaNotas);
+    }
+
+    fclose(archivo);
+    printf("Archivo exportado exitosamente como %s.\n", nombreArchivo);
+    printf("Presione 5.\n");
+}
+
+
+
+
+void exportarCsvContactos(HashMap *mapaContactos) {
+    time_t tiempoActual = time(NULL);
+    struct tm *tiempoInfo = localtime(&tiempoActual);
+
+    char nombreArchivo[100];
+    sprintf(nombreArchivo, "contactos_%d-%02d-%02d_%02d-%02d-%02d.csv",
+            tiempoInfo->tm_year + 1900, tiempoInfo->tm_mon + 1, tiempoInfo->tm_mday,
+            tiempoInfo->tm_hour, tiempoInfo->tm_min, tiempoInfo->tm_sec);
+
+    FILE *archivo = fopen(nombreArchivo, "w");
+    if (archivo == NULL) {
+        printf("No se pudo crear el archivo.\n");
+        return;
+    }
+
+    hashPair *par = firstMap(mapaContactos);
+    while (par != NULL) {
+        contacto *datosContacto = par->value;
+        fprintf(archivo, "%s,%s,%s\n", datosContacto->nombreContacto, datosContacto->numTelefono, datosContacto->correo);
+        par = nextMap(mapaContactos);
+    }
+
+    fclose(archivo);
+    printf("Archivo exportado exitosamente como %s.\n", nombreArchivo);
+    printf("Presione 5.\n");
+}
+
+
+
+void exportarCsvTareas(TreeMap* arbolTareas) {
+    time_t tiempoActual = time(NULL);
+    struct tm *tiempoInfo = localtime(&tiempoActual);
+
+    char nombreArchivo[100];
+    sprintf(nombreArchivo, "tareas_%d-%02d-%02d_%02d-%02d-%02d.csv",
+            tiempoInfo->tm_year + 1900, tiempoInfo->tm_mon + 1, tiempoInfo->tm_mday,
+            tiempoInfo->tm_hour, tiempoInfo->tm_min, tiempoInfo->tm_sec);
+
+    FILE* archivo = fopen(nombreArchivo, "w");
+    if (archivo == NULL) {
+        printf("No se pudo crear el archivo.\n");
+        return;
+    }
+
+    PairTree* par = firstTreeMap(arbolTareas);
+    while (par != NULL) {
+        datosTarea* datos = par->value;
+        //const char* completadaStr = datos->completada ? "Completada" : "No completada";
+      if (datos->completada == true)
+      {
+        fprintf(archivo, "%s,%d,%s\n", datos->nombre, datos->prioridad, "Si");
+        }
+      else
+      {
+        fprintf(archivo, "%s,%d,%s\n", datos->nombre, datos->prioridad, "No");
+      }
+        
+        par = nextTreeMap(arbolTareas);
+    }
+
+    fclose(archivo);
+    printf("Archivo exportado exitosamente como %s.\n", nombreArchivo);
+    printf("Presione 5.\n");
+}
+
+
+
 
 
 
